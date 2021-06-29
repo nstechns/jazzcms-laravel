@@ -108,6 +108,7 @@ class JazzCMS
         return $this->get('/sendsms_url.html?'.$this->buildQueryString($data));
     }
 
+    
     /**
      * CURL Request
      *
