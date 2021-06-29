@@ -17,4 +17,10 @@ return [
     'password' => env('JAZZ_CMS_PASSWORD'),
 
     'from' => env('JAZZ_CMS_MASK'),
+
+    'is_urdu' => env('JAZZ_IS_URDU', false),
+
+    'show_status' => env('JAZZ_SHOW_STATUS', true),
+
+    'short_code' => env('JAZZ_SHORT_CODE'),
 ];
