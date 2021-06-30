@@ -13,9 +13,9 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: nstechns/setup-php@v2
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.1'
+          php-version: '7.2'
           coverage: none
           extensions: mbstring, intl
 
@@ -42,7 +42,7 @@ jobs:
     strategy:
       max-parallel: 10
       matrix:
-        php: ['7.1', '7.2', '7.3', '7.4', '8.0']
+        php: ['7.2', '7.3', '7.4', '8.0']
         psr7: ['^1.7']
         include:
           - php: '7.4'
@@ -54,7 +54,7 @@ jobs:
 
     steps:
       - name: Set up PHP
-        uses: nstechns/setup-php@v2
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           coverage: none
@@ -73,6 +73,7 @@ jobs:
 
       - name: Download dependencies
         run: |
+          composer require --no-update "guzzlehttp/psr7:${{ matrix.psr7 }}"
           composer update --no-interaction --no-progress --prefer-dist
 
       - name: Run tests
@@ -84,11 +85,11 @@ jobs:
     strategy:
       max-parallel: 10
       matrix:
-        php: ['7.1','7.2', '7.3', '7.4', '8.0']
+        php: ['7.2', '7.3', '7.4', '8.0']
 
     steps:
       - name: Set up PHP
-        uses: nstechns/setup-php@v2
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           coverage: none
