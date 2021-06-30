@@ -60,6 +60,9 @@ class JazzCMS
 
         if ($type == 'POST' && !empty($data)) {
             curl_setopt($ch, CURLOPT_POST, 1);
+            if(!empty($file))
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            else
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         }
 
@@ -88,7 +91,7 @@ class JazzCMS
         $this->response->request = ['request_size' => $requestSize, 'curl_error' => $curlError, 'base_url' => $this->config['base_url'], 'content_type' => $contentType, 'redirect_count' => $redirectCount, 'effective_url' => $effectiveUrl, 'total_time' => $totalTime];
         $this->response->http_code = $httpCode;
 
-        if(!empty($data))
+        if(!empty($data) && !$file)
         $this->response->data = $this->parseXmlData($result);
         else {
             $this->response->data["statusmessage"] = $result;
@@ -96,7 +99,7 @@ class JazzCMS
 
         if ($httpCode == "200" && (isset($this->response->data["statusmessage"]) &&
                 in_array($this->response->data["statusmessage"],
-                    ["Message Sent Successfully!","In Process.. and check your campaign logs."]
+                    ["Message Sent Successfully!","In Process.. and check your campaign logs.", "Your Campaign runs successfully. Please check your campaign logs."]
                 ))) {
                 $this->response->status = 'success';
         } else {
@@ -168,6 +171,12 @@ class JazzCMS
         return $this->response;
     }
 
-
+    public function scheduleJob($contacts_file, $message, $schedule_date_time=null): \stdClass
+    {
+        $curl_file = new \CURLFile(realpath($contacts_file));
+        $parameters = ['Username'=>$this->config['username'], 'Password'=>$this->config['password'], 'From'=>$this->config['from_mask'], 'Message'=>$message, 'ScheduleDateTime'=>$schedule_date_time, 'file_contents'=>$curl_file];
+        $this->sendRequest('POST','/upload_txt.html',$parameters,[],true);
+        return $this->response;
+    }
 }
 
