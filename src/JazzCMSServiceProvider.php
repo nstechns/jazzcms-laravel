@@ -32,8 +32,8 @@ class JazzCMSServiceProvider extends ServiceProvider
         });
 
         $this->app->alias(JazzCMS::class, 'JazzCMS');
-
     }
+
     /**
      * Get the config path
      *
@@ -53,5 +53,4 @@ class JazzCMSServiceProvider extends ServiceProvider
     {
         $this->publishes([$configPath => config_path('jazz-cms.php')], 'config');
     }
-
 }
