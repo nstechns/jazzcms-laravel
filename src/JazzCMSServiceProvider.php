@@ -27,11 +27,15 @@ class JazzCMSServiceProvider extends ServiceProvider
         $configPath = __DIR__ . '/../config/jazz-cms.php';
         $this->mergeConfigFrom($configPath, 'jazz-cms');
 
-        $this->app->bind(JazzCMS::class, function ($app) {
-            return new JazzCMS;
+        $this->app->singleton(JazzCMS::class, function ($app) {
+            return JazzCMS::getInstance();
         });
 
-        $this->app->alias(JazzCMS::class, 'JazzCMS');
+       /* $this->app->bind(JazzCMS::class, function ($app) {
+            return JazzCMS::getInstance();
+        });
+       */
+        $this->app->alias(JazzCMSFacade::class, 'JazzCMS');
     }
 
     /**
