@@ -2,6 +2,10 @@
 
 All notable changes to `JazzCMS-Laravel` will be documented in this file.
 
+## 1.0.4 - 2022-21-06
+
+- Bug Fixing in parseXmlData return Array inside of Boolean.
+
 ## 1.0.3 - 2021-30-06
 
 - PHP lower version allow to use this package.
