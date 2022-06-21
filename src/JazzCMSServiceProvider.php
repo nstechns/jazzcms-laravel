@@ -31,10 +31,10 @@ class JazzCMSServiceProvider extends ServiceProvider
             return JazzCMS::getInstance();
         });
 
-       /* $this->app->bind(JazzCMS::class, function ($app) {
-            return JazzCMS::getInstance();
-        });
-       */
+        /* $this->app->bind(JazzCMS::class, function ($app) {
+             return JazzCMS::getInstance();
+         });
+        */
         $this->app->alias(JazzCMSFacade::class, 'JazzCMS');
     }
 

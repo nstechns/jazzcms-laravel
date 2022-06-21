@@ -8,13 +8,14 @@ class JazzCMS
     private $response;
     private static $instance;
 
-    public static function getInstance() {
-        if (!self::$instance) {
+    public static function getInstance()
+    {
+        if (! self::$instance) {
             self::$instance = new self();
         }
+
         return self::$instance;
     }
-
 
     public function __construct(array $config = [])
     {
@@ -131,7 +132,7 @@ class JazzCMS
         $simple_xml = simplexml_load_string($xml_utf8);
         $xml_to_json = json_encode($simple_xml);
 
-        return !empty($result)?json_decode($xml_to_json, true):[];
+        return ! empty($result)?json_decode($xml_to_json, true):[];
     }
 
     public function sendSMS($to, $message, $identifier = null, $unique_id = null, $product_id = null, $channel = null, $transaction_id = null): \stdClass
